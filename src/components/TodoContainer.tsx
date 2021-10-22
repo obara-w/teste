@@ -8,6 +8,7 @@ import TodosList from './TodosList';
 
 import About from '../pages/About'
 import NotMatch from '../pages/NotMatch'
+import Navbar from './Navbar';
 
 type TodoContainerProps = {
 
@@ -111,6 +112,7 @@ export class TodoContainer extends Component<TodoContainerProps, TodoContainerSt
   render() {
     return (
       <>
+        <Navbar />
         <Switch>
           <Route exact path='/'>
             <div className="container">
