@@ -13,15 +13,15 @@ jobs:
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Check out repository code
         uses: actions/checkout@master
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - name: Install Dependencies
-        run: npm install
-      - run: echo "Dependencies installed"
-      - name: Build
-        run: npm run build
-      - run: echo "Build Executed"
-      - name: Archive Production Artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: build
-          path: build
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner. ${{ secrets.GCP_SA_KEY }}"
+      # - name: Install Dependencies
+      #   run: npm install
+      # - run: echo "Dependencies installed"
+      # - name: Build
+      #   run: npm run build
+      # - run: echo "Build Executed"
+      # - name: Archive Production Artifact
+      #   uses: actions/upload-artifact@master
+      #   with:
+      #     name: build
+      #     path: build
