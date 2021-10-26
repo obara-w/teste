@@ -27,7 +27,7 @@ jobs:
           path: ./app-react/build
 
       - name: Install Dependencies functions
-        working-directory: ./app-react
+        working-directory: ./functions
         run: npm install 
       - name: Build functions
         working-directory: ./functions
