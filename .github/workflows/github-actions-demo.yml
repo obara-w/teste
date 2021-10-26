@@ -25,5 +25,5 @@ jobs:
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
-          name: ./app-react/build
-          path: build
+          name: build
+          path: ./app-react/build
