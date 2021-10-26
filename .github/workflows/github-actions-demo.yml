@@ -14,17 +14,29 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@master
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - name: Install Dependencies
+      - name: Install Dependencies web-app
         working-directory: ./app-react
         run: npm install
-      - name: Build
+      - name: Build web-app
         working-directory: ./app-react
         run: npm run build
-      - name: Archive Production Artifact
+      - name: Archive Production Artifact web-app
         uses: actions/upload-artifact@master
         with:
           name: build
           path: ./app-react/build
+
+      - name: Install Dependencies functions
+        working-directory: ./app-react
+        run: npm install 
+      - name: Build functions
+        working-directory: ./functions
+        run: npm run build 
+      - name: Archive Production Artifact functions
+        uses: actions/upload-artifact@master
+        with:
+          name: lib
+          path: ./functions/lib   
 
   deploy:
     name: Deploy
