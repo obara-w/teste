@@ -14,25 +14,24 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@master
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - name: Install Dependencies web-app
+      - name: Hosting - Install Dependencies
         working-directory: ./app-react
         run: npm install
-      - name: Build web-app
+      - name: Hosting - Build
         working-directory: ./app-react
         run: npm run build
-      - name: Archive Production Artifact web-app
+      - name: Hosting - Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
           name: build
           path: ./app-react/build
-
-      - name: Install Dependencies functions
+      - name: Functions - Install Dependencies 
         working-directory: ./functions
         run: npm install 
-      - name: Build functions
+      - name: Functions - Build
         working-directory: ./functions
         run: npm run build 
-      - name: Archive Production Artifact functions
+      - name: Functions - Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
           name: lib
@@ -45,14 +44,25 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
-      - name: Download Artifact
+      - name: Hosting - Download Artifact
         uses: actions/download-artifact@master
         with:
           name: build
           path: ./app-react/build
-      - name: Deploy to Firebase
+      - name: Hosting - Deploy
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+      - name: Functions - Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: lib
+          path: ./functions/lib  
+      - name: Functions - Deploy
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}    
