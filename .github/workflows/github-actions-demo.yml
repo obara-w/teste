@@ -25,18 +25,6 @@ jobs:
         with:
           name: build
           path: ./app-react/build
-      - name: Functions - Install Dependencies 
-        working-directory: ./functions
-        run: npm install 
-      - name: Functions - Build
-        working-directory: ./functions
-        run: npm run build 
-      - name: Functions - Archive Production Artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: lib
-          path: ./functions/lib   
-
   deploy:
     name: Deploy
     needs: build
@@ -55,11 +43,9 @@ jobs:
           args: deploy --only hosting
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
-      - name: Functions - Download Artifact
-        uses: actions/download-artifact@master
-        with:
-          name: lib
-          path: ./functions/lib  
+      - name: Functions - Install Dependencies 
+        working-directory: ./functions
+        run: npm install     
       - name: Functions - Deploy
         uses: w9jds/firebase-action@master
         with:
